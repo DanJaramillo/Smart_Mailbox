@@ -1,6 +1,9 @@
 #include "HX711.h"
 
-HX711::HX711(uint32_t data_pin, uint32_t clock_pin) : m_data_pin(data_pin), m_clock_pin(clock_pin), m_mode(a_128) { }
+HX711::HX711(uint32_t data_pin, uint32_t clock_pin) : m_data_pin(data_pin), m_clock_pin(clock_pin), m_mode(a_128) { 
+    pinMode(m_data_pin, INPUT_PULLUP);
+    pinMode(m_clock_pin, OUTPUT);
+}
 
 bool HX711::is_ready() {
     return m_mode && !digitalRead(m_data_pin);
@@ -45,7 +48,7 @@ int32_t HX711::read(hx711_mode mode) {
         delayMicroseconds(clock_low_time);
     }
 
-    // set mode
+    // finish mode
     for(; i < mode; i++) {
         digitalWrite(m_clock_pin, HIGH);
         delayMicroseconds(clock_high_time);
