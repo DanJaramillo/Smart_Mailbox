@@ -16,31 +16,31 @@ class HX711 {
 
         /**
          * Constructor
-         * Sets data pin and clock pin.
+         * Sets data pin and clock pin to input and output respectively. Turns on HX711 with default mode of channel A and gain of 128.
         */
         HX711(uint32_t d_pin, uint32_t c_pin);
 
         /**
          * ready()
-         * Returns true if the output data is ready for retrieval.
+         * Returns true if HX711 is on and data is ready for retrieval.
         */
         bool is_ready();
 
         /**
          * read()
-         * Returns raw 24 bits of data captured by ADC using currently set mode. Does not check for ready.
+         * Waits for ADC to be ready, then returns 24 bit value from ADC using the currently set mode. Returns -1 if ADC is powered down/off.
         */
         int32_t read();
 
         /**
-         * read()
-         * Returns raw 24 bits of data captured by ADC using previously set mode. Changes ADC mode for future captures. Does not check for ready state.
+         * get_mode()
+         * Returns the current mode of the HX711.
         */
-        int32_t read(hx711_mode mode);
+        hx711_mode get_mode();
 
         /**
          * set_mode()
-         * Stores 24 bits captured by ADC using previously set mode. Changes the ADC mode for future captures. Does not check for ready state.
+         * Changes the ADC mode for future captures. If not already on, powers it on first.
         */
         void set_mode(hx711_mode mode);
 
@@ -60,9 +60,8 @@ class HX711 {
         uint32_t    m_data_pin;
         uint32_t    m_clock_pin;
         hx711_mode  m_mode;
-        int32_t     m_raw_data;
 
-        // micro seconds
+        // times are in micro seconds
         const uint32_t  clock_high_time = 1;
         const uint32_t  clock_low_time = 1;
         const uint32_t  power_down_time = 60;
