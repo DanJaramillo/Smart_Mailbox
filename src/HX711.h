@@ -67,6 +67,12 @@ class HX711 {
         const uint32_t  power_down_time = 60;
 
         const uint32_t  data_width = 24;
+
+        /**
+         * sign_extend_24_32
+         * Sign extend the 24 bit 2s compliment number to 32 bit 2s compliment.
+        */
+        int32_t sign_extend_24_32(int32_t x);
 };
 
 #endif

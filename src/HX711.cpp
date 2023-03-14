@@ -43,7 +43,7 @@ int32_t HX711::read() {
         delayMicroseconds(clock_low_time);
     }
 
-    return data;
+    return sign_extend_24_32(data);
 }
 
 HX711::hx711_mode HX711::get_mode() {
@@ -84,4 +84,15 @@ inline void HX711::power_down() {
 inline void HX711::power_up() {
     digitalWrite(m_clock_pin, LOW);
     m_mode = a_128;
+}
+
+/**
+ * sign_extend_24_32()
+ * Sign extend the 24 bit 2s compliment number to 32 bit 2s compliment.
+ * Takes advantage of right shift being an arithmetic shift.
+*/
+int32_t HX711::sign_extend_24_32(int32_t x) {
+    x = x << 8;
+    x = x >> 8;
+    return x;
 }
