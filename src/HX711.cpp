@@ -12,8 +12,9 @@ bool HX711::is_ready() {
 
 int32_t HX711::read() {
     //exit if powered down
-    if(m_mode == off)
-        return -1;
+    if(m_mode == off) {
+        return INT32_MIN;
+    }
     
     // wait for ready
     while(!is_ready()) {
