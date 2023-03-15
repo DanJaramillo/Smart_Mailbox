@@ -71,6 +71,8 @@ class HX711 {
         /**
          * sign_extend_24_32
          * Sign extend the 24 bit 2s compliment number to 32 bit 2s compliment.
+         * Note: Left shift into sign bit is undefined in C++ language and right shift is implementation defined.
+         * Both work correctly on Atmel M0 with Arduino Framework.
         */
         int32_t sign_extend_24_32(int32_t x);
 };

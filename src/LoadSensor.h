@@ -18,14 +18,14 @@ class LoadSensor: public HX711 {
          * tare()
          * Sets the offset for the zero measurement. Defaults to 16 samples to reduce noise.
         */
-        void tare(uint16_t samples = 16);
+        int32_t tare(uint16_t samples = 16);
 
 
         /**
          * scale()
          * Sets the scale factor to calibrate the load sensor.
         */
-        void scale(float test_load, uint16_t samples = 16);
+        float scale(float test_load, uint16_t samples = 16);
 
         /**
          * measure()
